@@ -22,8 +22,9 @@ class ShowTournament extends React.Component{
     render(){
 
         return(
-            <GameComponent game={ROOT} homeOnTop={this.state.homeOnTopState}/>
-//<div>sa</div>
+
+            <Bracket game={ROOT} homeOnTop={this.state.homeOnTopState} GameComponent={GameComponent}/>
+
             );
 
         

@@ -161,7 +161,7 @@ export default [
               'externalId': '17U-A',
               'type': 'Pool'
             },
-            'name': 'Cochrane Fountain City Pirates',
+            'name': 'Deneme',
             'externalId': '17U-CochraneFountainCityPirates',
             'numGames': 3,
             'standing': {
