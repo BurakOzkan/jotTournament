@@ -2,10 +2,14 @@
   "name": "jottournament",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://burak.jotform.io/jottournament/",
   "dependencies": {
+    "jsog": "^1.0.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "react-tournament-bracket": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",

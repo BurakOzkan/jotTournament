@@ -1,6 +1,30 @@
 .App {
   text-align: center;
 }
+.createButton
+{
+position: relative;
+width: auto;
+height: auto;
+padding: 20px;
+
+background: #ff4057;
+font-family: 'Montserrat', sans-serif;
+text-align: left;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+color: #413c3c;
+border: 1px solid #000000;
+
+}
+.createButton:active{
+  background: #a7a8a8;
+}
+#join{
+  background: #60ffca;
+}
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -9,7 +33,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #240041;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
