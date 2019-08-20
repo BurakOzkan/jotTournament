@@ -8,39 +8,36 @@ class TournamentCreate extends React.Component{
 
     componentDidMount() {
         const url = 'https://api.jotform.com/form?apiKey=' + API_KEY;
+let baslik = "Tourr";
 
-     let body = {
-            apikey: API_KEY,
-            // questions: [{ 
-            //     type: "control_head",
-            //     text: "Form Title",
-            //     order: "1",
-            //     name: "Header"
-            // },{ 
-            //     type: "control_head",
-            //     text: "Form Title",
-            //     order: "2",
-            //     name: "Header"
-            // }],
-            properties: {
-                title: "New Form",
-                height: "600"
-            },
-            // emails: [[
-            // {
-            //     type: "notification",
-            //     name: "notification",
-            //     from: "default",
-            //     to: "noreply@jotform.com",
-            //     subject: "New Submission",
-            //     html: "false"
-            // }]]
-        }
+let formJSON = {
+    "properties": {
+        "title": `Form Baslık:${baslik}`,
+        "height": "600"
+    },
 
-        global.JF.createForm(JSON.stringify(body), (response)=>{
-            console.log(response);
-        }, (err) => console.error(err))
+}
 
+     
+
+
+        // GETFORM
+        // window.JF.getForm("92181413902956", function(response){
+        //         *
+        //          successful response including form data with given id
+        //          .
+                 
+        //          console.log(response);  
+        //     });
+
+        //FORM CREATE
+        window.JF.createForms(JSON.stringify(formJSON),function(response){
+            /**
+             successful response including created form object
+             *
+             */
+             console.log(response);
+        });
         // axios.post(url, body).then(obj => {
         //         console.log(obj.data);
         //     })
