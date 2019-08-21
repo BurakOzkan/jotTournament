@@ -1,14 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
-import TournamentCreate from './components/TournamentCreate'
-import TournamentJoin from './components/TournamentJoin'
-import ShowTournament from './components/ShowTournament';
+import React from "react";
+import ReactDOM from "react-dom";
+import createSagaMiddleware from "redux-saga";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import { logger } from "redux-logger";
+import reducer from "./reducers";
+import rootSaga from "./sagas";
+
+import "./index.css";
+
+import * as serviceWorker from "./serviceWorker";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import TournamentCreate from "./components/TournamentCreate";
+import TournamentJoin from "./components/TournamentJoin";
+import ShowTournament from "./components/ShowTournament";
+import App from "./App";
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(reducer, applyMiddleware(sagaMiddleware, logger));
+
+sagaMiddleware.run(rootSaga);
 
 const routing = (
+  <Provider store={store}>
     <Router>
       <div>
         <ul>
@@ -31,8 +46,9 @@ const routing = (
         <Route path="/TournamentShow" component={ShowTournament} />
       </div>
     </Router>
-  )
-  ReactDOM.render(routing, document.getElementById('root'))
+  </Provider>
+);
+ReactDOM.render(routing, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

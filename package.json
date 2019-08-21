@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://burak.jotform.io/jottournament/",
   "dependencies": {
+    "jquery": "^3.4.1",
     "jsog": "^1.0.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
