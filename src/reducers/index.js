@@ -1,11 +1,18 @@
-const reducer = (state = {}, action) => {
-	switch (action.type) {
-		case "GET_SUBMISSIONS":
-			return { ...state, loading: true };
-		case "SUBMISSION_RECEIVED":
-			return { ...state, news: action.json[0], loading: false };
-		default:
-			return state;
-	}
-};
-export default reducer;
+import { combineReducers } from "redux";
+
+import submissionReducer from "./submissionsReducers";
+
+import createForm from './createformReducers';
+// import errorReducer from './errorReducer';
+// import pageReducer from './pageReducer';
+// import statsReducer from './statsReducer';
+
+const rootReducer = combineReducers({
+	createForm: createForm,
+	submission: submissionReducer,
+	// error: errorReducer,
+	// nextPage: pageReducer,
+	// imageStats: statsReducer,
+});
+
+export default rootReducer;

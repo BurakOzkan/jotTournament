@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { logger } from "redux-logger";
 import reducer from "./reducers";
 import rootSaga from "./sagas";
+import configureStore from './store';
 
 import "./index.css";
 
@@ -16,37 +17,35 @@ import TournamentJoin from "./components/TournamentJoin";
 import ShowTournament from "./components/ShowTournament";
 import App from "./App";
 
-const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(reducer, applyMiddleware(sagaMiddleware, logger));
+const store = configureStore();
 
-sagaMiddleware.run(rootSaga);
 
 const routing = (
   <Provider store={store}>
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/TournamentCreate">Create Tournament</Link>
-          </li>
-          <li>
-            <Link to="/TournamentJoin">Join Tournament</Link>
-          </li>
-          <li>
-            <Link to="/TournamentShow">Tournaments</Link>
-          </li>
-        </ul>
-        <Route exact path="/" component={App} />
-        <Route path="/TournamentJoin" component={TournamentJoin} />
-        <Route path="/TournamentCreate" component={TournamentCreate} />
-        <Route path="/TournamentShow" component={ShowTournament} />
-      </div>
-    </Router>
-  </Provider>
+  <Router>
+    <div>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/TournamentCreate">Create Tournament</Link>
+        </li>
+        <li>
+          <Link to="/TournamentJoin">Join Tournament</Link>
+        </li>
+        <li>
+          <Link to="/TournamentShow">Tournaments</Link>
+        </li>
+      </ul>
+      <Route exact path="/" component={App} />
+      <Route path="/TournamentJoin" component={TournamentJoin} />
+      <Route path="/TournamentCreate" component={TournamentCreate} />
+      <Route path="/TournamentShow" component={ShowTournament} />
+    </div>
+  </Router>
+   </Provider>
 );
 ReactDOM.render(routing, document.getElementById("root"));
 

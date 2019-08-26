@@ -1,21 +1,40 @@
-import axios from "axios";
+import { SUBMISSION /*, STATS*/ } from "../constants";
 
-const API_KEY = "ade9c792cc4b870cbac321b22d6a89ee";
-const FORM_ID = "92181413902956";
-const FETCH_SUBMISSIONS = "https://api.jotform.com/form/";
+const loadSubmission = () => ({
+    type: SUBMISSION.LOAD
+});
 
-export const fetchSubmissions = () => async dispatch => {
-	const url = `${FETCH_SUBMISSIONS}/${FORM_ID}/submissions?apikey=${API_KEY}&orderby=id`;
-	const { data } = await axios.get(url);
+const setSubmission = submission => ({
+    type: SUBMISSION.LOAD_SUCCESS,
+    submission
+});
 
-	const obj = data.content.map(resultSet => ({
-		...resultSet.answers[3],
-		done: resultSet.flag,
-		id: resultSet.id
-	}));
+const setError = error => ({
+    type: SUBMISSION.LOAD_FAIL,
+    error
+});
 
-	dispatch({
-		type: types.CREATE_FORM,
-		payload: obj
-	});
+// const loadShowStats = id => ({
+//     type: STATS.LOAD,
+//     id,
+// });
+
+// const setImageStats = (id, downloads) => ({
+//     type: STATS.LOAD_SUCCESS,
+//     id,
+//     downloads,
+// });
+
+// const setImageStatsError = id => ({
+//     type: STATS.LOAD_FAIL,
+//     id,
+// });
+
+export {
+    loadSubmission,
+    setSubmission,
+    setError
+    // loadImageStats,
+    // setImageStats,
+    // setImageStatsError,
 };

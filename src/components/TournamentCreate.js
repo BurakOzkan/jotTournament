@@ -1,9 +1,84 @@
 import React from "react";
 import Iframe from "./Iframe";
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import { Button , Row} from 'react-bootstrap';
+
+
+import { loadSubmission } from "../actions";
+
+class TournamentCreate extends React.Component {
+   //BURADAN  FORM/FORMLAR OLUŞTURABİLİYORUM. JS iLE
+   //BU IFRAME DE DOLDURULMUŞ SUBMİSSİON VERLİERİNİ JOTFORMDAN ALIP BURDAKİ JSON A YAZMAM LAZIM
+   
+   constructor(props) {
+      super(props);
+      this.state = {
+         src: "https://form.jotform.com/92181413902956"
+      };
+
+      this.handleIframeMessage = this.handleIframeMessage.bind(this);
+   }
+
+   componentDidMount() {
+      window.addEventListener("message", this.handleIframeMessage, false);
+   }
+
+   componentWillUnmount() {
+      window.removeEventListener("message", this.handleIframeMessage, false);
+   }
+
+
+
+   
+   handleIframeMessage(e) {
+
+      if (
+         typeof e.data === "object" &&
+         e.data.action &&
+         e.data.action === "submission-completed"
+      ) {
+         window.scrollTo(0, 0);
+         console.log("yok");
+         
+         // TODO
+         // action dispatch
+         this.props.loadSubmission();   //THIS.PROPS.yazmadan neden olmadı.?
+         // bu actioni saga yakalayacak
+         // action son submission alicak
+         // form yaraticak
+      }
+   }
+
+   render() {
+      const { loadSubmission } = this.props;
+
+      return (<div><Iframe source={this.state.src} />
+            <Row><Button variant="primary" onClick={() =>  loadSubmission()}   /></Row>
+            </div>
+         
+         
+         );
+   }
+}
+
+
+const mapStateToProps = ({ isLoading, images, error, imageStats }) => ({
+   isLoading,
+   images,
+   error,
+   imageStats,
+});
+
+const mapDispatchToProps = dispatch => ({
+   loadSubmission: () => dispatch(loadSubmission()),
+});
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(TournamentCreate);
 // import axios from "axios";
 // import SIGNUPJSON from "./signup-form";
-
-//FORMDAKİ(IFRAME) SUBMİT BUTONUNA NASIL ONCLİCK EVENT EKLERİM YA DA FORMU KAYNAK KODLA EKLEMEYİ DÜŞÜNMÜŞTÜK
 
 // JSON AND FUNCTION CALL FOR CREATE TEAM SIGNUP FORM ***********************
 // let tournamentName = "default";
@@ -156,44 +231,3 @@ import Iframe from "./Iframe";
 // axios.post(url, body).then(obj => {
 //         console.log(obj.data);
 //     })
-
-class TournamentCreate extends React.Component {
-      //BURADAN  FORM/FORMLAR OLUŞTURABİLİYORUM. JS iLE
-      //BU IFRAME DE DOLDURULMUŞ SUBMİSSİON VERLİERİNİ JOTFORMDAN ALIP BURDAKİ JSON A YAZMAM LAZIM
-      constructor(props) {
-            super(props);
-            this.state = {
-                  src: "https://form.jotform.com/92181413902956"
-            };
-
-            this.handleIframeMessage = this.handleIframeMessage.bind(this);
-      }
-
-      componentDidMount() {
-            window.addEventListener('message', this.handleIframeMessage, false);
-      }
-
-      componentWillUnmount() {
-            window.removeEventListener('message', this.handleIframeMessage, false);
-      }
-
-      handleIframeMessage(e) {
-            if (
-                  typeof e.data === 'object' &&
-                  e.data.action &&
-                  e.data.action === 'submission-completed'
-            ) {
-                  window.scrollTo(0, 0);
-                  // TODO
-                  // action dispatch
-                  // bu actioni saga yakalayacak
-                  // action son submission alicak
-                  // form yaraticak
-            }
-      }
-
-      render() {
-            return <Iframe source={this.state.src} />;
-      }
-}
-export default TournamentCreate;

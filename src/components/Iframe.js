@@ -7,8 +7,6 @@ const Iframe = ({ source }) => {
 
     const src = source;
     return (
-        // basic bootstrap classes. you can change with yours.
-
         <iframe
             id="JotFormIFrame-92181413902956"
             title="Create Tournament"
