@@ -7,23 +7,10 @@ const FETCH_SUBMISSIONS = 'https://api.jotform.com/form'
 
 
 
-export  const fetchSubmission = async () => { //Burayı düzelttim çalıştı 
-  console.log("deneme2")
-
+export  const fetchLastSubmission = async () => { //Burayı düzelttim çalıştı
   const url = `${FETCH_SUBMISSIONS}/${FORM_ID}/submissions?apikey=${API_KEY}`
   const { data } = await axios.get(url)
-  console.log("deneme2")
-
-  const obj = data.content.map(resultSet => ({
-    ...resultSet.answers[3],
-    done: resultSet.flag,
-    id: resultSet.id,
-  }))
-
-  console.log(obj);
-  console.log(obj[0].answer); //Son Submissionu Al
-  
-  return obj;
+  return data.content[0].answers;
 }
 
 
