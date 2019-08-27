@@ -20,9 +20,19 @@ const ROOT = GAMES.filter(e => {
 // SAGA
 // https://github.com/svrcekmichal/redux-axios-middleware Redux ile yapıp bunu mu kullanmalıyım
 
+
+// TODO :: move this component to another file
+const TournementThumbnail = ({ id, name, onClick }) => (
+    <button onClick={onClick} data-form-id={id}>
+        {name}
+    </button>
+);
+
 class ShowTournament extends React.Component {
     componentDidMount() {
-        // console.log(ROOT);
+        // TODO :: dispatch action to fetch tournement forms
+        // this action will fetch all user forms and filter them
+        // in accordingly with their title prefix as __tournamentForm__
     }
 
     state = {
@@ -30,14 +40,55 @@ class ShowTournament extends React.Component {
         hoveredTeamId: null
     };
 
+    get onGoingTournements() {
+        const { tournementForms } = this.props;
+        return [];
+    }
+
+    handleTournementClick(e) {
+        // dispatch action to fetch submissions of the tournement form
+        // e.target.dataset.formId
+    }
+
     render() {
+        // On Going Tournements
+        // Future Tournements
+        // Past Tournements
+
+        /*
+            tournements [
+                {
+                    id,
+                    name
+                }
+            ]
+        */
         return (
-            <Bracket
-                game={ROOT}
-                homeOnTop={this.state.homeOnTopState}
-                GameComponent={GameComponent}
-            />
+            <div>
+                <div>
+                    <h3>On Going Tournements</h3>
+                    <div>
+                        {
+                            this.onGoingTournements.map(tourno => (
+                                <TournementThumbnail
+                                    {...tourno}
+                                    onClick={this.handleTournementClick}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+                <h3>Future Tournements</h3>
+                <h3>Past Tournements</h3>
+            </div>
         );
+        // return (
+        //     <Bracket
+        //         game={ROOT}
+        //         homeOnTop={this.state.homeOnTopState}
+        //         GameComponent={GameComponent}
+        //     />
+        // );
     }
 }
 export default ShowTournament;

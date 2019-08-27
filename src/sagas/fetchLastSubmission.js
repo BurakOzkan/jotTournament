@@ -30,11 +30,11 @@ export function* handleSubmissionLoad() {
 
     let formJSON = {
       properties: {
-        title: `${name}  Sign Up Form`,
+        pageTitle: `${name}  Sign Up Form`,
+        title: `__tournamentForm__${name}  Sign Up Form`,
         height: "600",
         limitSubmission: `${participantCount}`,
         expireDate: `${start.year}-${start.month}-${start.day} 00:00 `
-        
       },
       questions: {
         "0": {
