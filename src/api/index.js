@@ -16,14 +16,15 @@ const fetchLastSubmission = async () => {
 const fetchAllForms = async () => {
   //Burayı düzelttim çalıştı
   const url = `https://api.jotform.com/user/forms?apikey=${API_KEY}&limit=50`;
-  const { data } = await axios.get(url);
+  const { data: { content } } = await axios.get(url);
 
-  var idTitleArray = data.content.map(function(data) {
-    return {title: data.title, id: data.id};
-  });
-
-
-  return idTitleArray;
+  const tf = content.reduce((tournamentForms, { title, id }) => {
+    if (title.includes('__tournamentForm__')) {
+      return [...tournamentForms, { title, id }];
+    }
+    return tournamentForms;
+  }, []);
+  return tf;
 };
 
 export { fetchLastSubmission, fetchAllForms };

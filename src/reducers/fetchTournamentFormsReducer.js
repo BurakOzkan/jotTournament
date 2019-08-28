@@ -8,7 +8,6 @@ const submissionReducer = (state = false, action) => {
             return false;
         case FORMS.FETCH_FAIL:
             return false;
-
         default:
             return state;
     }
