@@ -1,9 +1,21 @@
 import { FORMS } from '../constants';
 
-const tournamentFormsReducer = (state = [], action) => {
+const tournamentFormsReducer = (state = {}, action) => {
     if (action.type === FORMS.FETCH_SUCCESS) {
-      // TODO :: set forms to reducers by their formID
-        return [...state, ...action.forms];
+      // set forms to reducers by their formID
+
+
+      function toObject(arr) {
+        var rv = {};
+        for (var i = 0; i < arr.length; ++i)
+          rv[arr[i].id] = arr[i].title;
+        return rv;
+      }
+
+      let newState = toObject(action.forms);
+
+        console.log(newState);
+        return newState;
     }
     return state;
 };

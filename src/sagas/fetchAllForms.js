@@ -11,6 +11,10 @@ export function* handleFetchForms() {
   try {
     const forms = yield fetchAllForms();
     // below action will set the tourno forms to the reducer by their IDs
+
+  
+    console.log(  forms);
+
     yield put(setForms(forms));
 
     // call a new action that will query each formID in the reducer,
