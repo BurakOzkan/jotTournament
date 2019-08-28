@@ -1,21 +1,21 @@
 import React from "react";
-import {
-    Bracket,
-    // BracketGame,
-    // BracketGenerator,
-    // Model,
-    GameComponent
-} from "react-tournament-bracket";
+// import {
+//     Bracket,
+//     // BracketGame,
+//     // BracketGenerator,
+//     // Model,
+//     GameComponent
+// } from "react-tournament-bracket";
 import DEMO_DATA from "./demo-data";
 import JSOG from "jsog";
-// import axios from "axios";
-// const API_KEY = "ade9c792cc4b870cbac321b22d6a89ee";
-// const formID = "92181413902956";
+import { fetchAllForms } from "../actions";
+import { connect } from 'react-redux';
 
-const GAMES = JSOG.decode(DEMO_DATA);
-const ROOT = GAMES.filter(e => {
-    return e.id === "35b0745d-ef13-4255-8c40-c9daa95e4cc4";
-})[0];
+
+// const GAMES = JSOG.decode(DEMO_DATA);
+// const ROOT = GAMES.filter(e => {
+//     return e.id === "35b0745d-ef13-4255-8c40-c9daa95e4cc4";
+// })[0];
 // console.log(GAMES);
 // SAGA
 // https://github.com/svrcekmichal/redux-axios-middleware Redux ile yapıp bunu mu kullanmalıyım
@@ -29,7 +29,11 @@ const TournementThumbnail = ({ id, name, onClick }) => (
 );
 
 class ShowTournament extends React.Component {
+    
     componentDidMount() {
+
+
+        this.props.fetchAllForms();
         // TODO :: dispatch action to fetch tournement forms
         // this action will fetch all user forms and filter them
         // in accordingly with their title prefix as __tournamentForm__
@@ -41,7 +45,7 @@ class ShowTournament extends React.Component {
     };
 
     get onGoingTournements() {
-        const { tournementForms } = this.props;
+        const { forms } = this.props;
         return [];
     }
 
@@ -67,6 +71,7 @@ class ShowTournament extends React.Component {
             <div>
                 <div>
                     <h3>On Going Tournements</h3>
+                    
                     <div>
                         {
                             this.onGoingTournements.map(tourno => (
@@ -91,4 +96,21 @@ class ShowTournament extends React.Component {
         // );
     }
 }
-export default ShowTournament;
+
+
+
+
+const mapStateToProps = ({ isLoading, images, error, imageStats }) => ({
+    isLoading,
+    images,
+    error,
+    imageStats,
+ });
+ 
+ const mapDispatchToProps = dispatch => ({
+    fetchAllForms: () => dispatch(fetchAllForms()),
+ });
+ export default connect(
+     mapStateToProps,
+     mapDispatchToProps,
+ )(ShowTournament);

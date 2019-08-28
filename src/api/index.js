@@ -1,18 +1,32 @@
-import axios from 'axios'
+import axios from "axios";
 
-import { CREATE_FORM } from '../constants/actionTypes';
-const API_KEY = 'ade9c792cc4b870cbac321b22d6a89ee'
-const FORM_ID = '92181413902956'
-const FETCH_SUBMISSIONS = 'https://api.jotform.com/form'
+import { CREATE_FORM } from "../constants/actionTypes";
+const API_KEY = "ade9c792cc4b870cbac321b22d6a89ee";
+const FORM_ID = "92181413902956";
+const FETCH_SUBMISSIONS = "https://api.jotform.com/form";
+const FETCH_FORMS = "https://api.jotform.com/user/forms";
 
-
-
-export  const fetchLastSubmission = async () => { //Burayı düzelttim çalıştı
-  const url = `${FETCH_SUBMISSIONS}/${FORM_ID}/submissions?apikey=${API_KEY}`
-  const { data } = await axios.get(url)
+const fetchLastSubmission = async () => {
+  //Burayı düzelttim çalıştı
+  const url = `${FETCH_SUBMISSIONS}/${FORM_ID}/submissions?apikey=${API_KEY}`;
+  const { data } = await axios.get(url);
   return data.content[0].answers;
-}
+};
+// https://api.jotform.com/user/forms?apikey=ade9c792cc4b870cbac321b22d6a89ee&orderby=id
+const fetchAllForms = async () => {
+  //Burayı düzelttim çalıştı
+  const url = `https://api.jotform.com/user/forms?apikey=${API_KEY}&limit=50`;
+  const { data } = await axios.get(url);
 
+  var idTitleArray = data.content.map(function(data) {
+    return {title: data.title, id: data.id};
+  });
+
+
+  return idTitleArray;
+};
+
+export { fetchLastSubmission, fetchAllForms };
 
 /*const fetchImageStats = async id => {
     const response = await fetch(`${URL}/${id}/statistics${KEY}`);
@@ -22,7 +36,3 @@ export  const fetchLastSubmission = async () => { //Burayı düzelttim çalışt
     }
     return data;
 };*/
-
-
-
-// export { fetchImages, fetchImageStats };

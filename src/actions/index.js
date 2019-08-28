@@ -1,7 +1,21 @@
-import { SUBMISSION /*, STATS*/ } from "../constants";
+import { SUBMISSION , FORMS } from "../constants";
 
 const loadSubmission = () => ({
     type: SUBMISSION.LOAD
+});
+
+const fetchAllForms = () => ({
+    type: FORMS.FETCH
+});
+
+const setForms = forms => ({
+    type: FORMS.FETCH_SUCCESS,
+    forms
+});
+
+const setFetchAllFormsError = error => ({
+    type: FORMS.FETCH_FAIL,
+    error
 });
 
 const setSubmission = submission => ({
@@ -32,6 +46,9 @@ const setError = error => ({
 
 export {
     loadSubmission,
+    fetchAllForms,
+    setForms,
+    setFetchAllFormsError,
     setSubmission,
     setError
     // loadImageStats,
