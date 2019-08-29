@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 // import {
 //     Bracket,
 //     // BracketGame,
@@ -10,19 +10,13 @@ import DEMO_DATA from "./demo-data";
 import JSOG from "jsog";
 import { fetchAllForms } from "../actions";
 import { connect } from 'react-redux';
-import TournementThumbnail from './TournamentThumbnail.js';
+import TournamentThumbnail from './TournamentThumbnail.js';
 
+// TODO :: Research what is PureComponent and its difference from the Component
 
-
-
-
-class ShowTournament extends React.Component {
-    
+class ShowTournament extends PureComponent {
     componentDidMount() {
-
-
         this.props.fetchAllForms();
-
     }
 
     state = {
@@ -30,47 +24,77 @@ class ShowTournament extends React.Component {
         hoveredTeamId: null
     };
 
-    get onGoingTournements() {
-        const { forms } = this.props;
-        return [forms];
+    get tournaments() {
+        /*
+            {
+                ongoing: [],
+                past: [],
+                future: []
+            }
+        */
+        const now = new Date();
+
+        return Object.keys(this.props.forms).reduce((allForms, formID) => {
+            const currentForm = this.props.forms[formID];
+            const expire = new Date(currentForm.start);
+
+            // TODO :: calculate on going and future events
+
+            if (now > expire) {
+                return {
+                    ...allForms,
+                    pastTournaments: [...allForms.pastTournaments, currentForm]
+                };
+            }
+
+            return {
+                ...allForms,
+                onGoingTournaments: [...allForms.onGoingTournaments, currentForm]
+            };
+        }, {
+            onGoingTournaments: [],
+            pastTournaments: [],
+            futureTournaments: []
+        });
     }
 
-    handleTournementClick(e) {
-        // dispatch action to fetch submissions of the tournement form
+    handleTournamentClick(e) {
+        // dispatch action to fetch submissions of the tournament form
+        // change route => http://localhost:3000/TournamentShow/${formID}
+        // render bracket from submissions
         // e.target.dataset.formId
     }
 
     render() {
-        // On Going Tournements
-        // Future Tournements
-        // Past Tournements
-
-        /*
-            tournements [
-                {
-                    id,
-                    name
-                }
-            ]
-        */
         return (
             <div>
                 <div>
-                    <h3>On Going Tournements</h3>
-                    
+                    <h3>On Going Tournaments</h3>
                     <div>
                         {
-                            this.onGoingTournements.map(tourno => (
-                                <TournementThumbnail
+                            this.tournaments.onGoingTournaments.map(tourno => (
+                                <TournamentThumbnail
                                     {...tourno}
-                                    onClick={this.handleTournementClick}
+                                    onClick={this.handleTournamentClick}
                                 />
                             ))
                         }
                     </div>
                 </div>
-                <h3>Future Tournements</h3>
-                <h3>Past Tournements</h3>
+                <h3>Future Tournaments</h3>
+                <div>
+                    <h3>Past Tournaments</h3>
+                    <div>
+                        {
+                            this.tournaments.pastTournaments.map(tourno => (
+                                <TournamentThumbnail
+                                    {...tourno}
+                                    onClick={this.handleTournamentClick}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         );
 
@@ -80,17 +104,15 @@ class ShowTournament extends React.Component {
 
 
 
-const mapStateToProps = ({ isLoading, images, error, imageStats }) => ({
-    isLoading,
-    images,
-    error,
-    imageStats,
- });
- 
- const mapDispatchToProps = dispatch => ({
-    fetchAllForms: () => dispatch(fetchAllForms()),
- });
- export default connect(
-     mapStateToProps,
-     mapDispatchToProps,
- )(ShowTournament);
+const mapStateToProps = ({ tournamentFormsReducer }) => ({
+    forms: tournamentFormsReducer
+});
+
+const mapDispatchToProps = {
+    fetchAllForms
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ShowTournament);

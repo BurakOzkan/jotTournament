@@ -32,7 +32,6 @@ const fetchExpireDate = async (formID) => {
   const url = `https://api.jotform.com/form/${formID}/properties?apiKey=${API_KEY}&limit=50&orderby=id`;
 
   const { data: { content } } = await axios.get(url);
-  console.log(content.expireDate , content.id , content.title);
   return content.expireDate;
   
 };

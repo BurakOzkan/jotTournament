@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-const TournementThumbnail = ({ id, name, onClick }) => (
+const TournementThumbnail = ({ id, title, onClick }) => (
     <button onClick={onClick} data-form-id={id}>
-        {name}
+        {title.replace('__tournamentForm__', '')}
     </button>
 );
 

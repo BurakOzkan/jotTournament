@@ -10,23 +10,14 @@ import { fetchAllForms , fetchExpireDate } from "../api";
 export function* handleFetchForms() {
   try {
     const forms = yield fetchAllForms();
-
-
-
-
     // below action will set the tourno forms to the reducer by their IDs
-
     yield all(forms.map((form) => {
-      const expireDateId =  fetchExpireDate(form.id) ;
-        expireDateId.then((value)=>{
-            form.start = value.toString();
-        })
+      return fetchExpireDate(form.id).then((value) => {
+        form.start = value.toString();
+      });
     }));
-  
 
-    console.log(forms);
-
-    yield put(setForms(forms ));
+    yield put(setForms(forms));
 
     // call a new action that will query each formID in the reducer,
     // get their formProperties and update the reducer in that key
