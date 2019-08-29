@@ -8,7 +8,7 @@ const fetchAllForms = () => ({
     type: FORMS.FETCH
 });
 
-const setForms = forms => ({
+const setForms = (forms) => ({
     type: FORMS.FETCH_SUCCESS,
     forms
 });

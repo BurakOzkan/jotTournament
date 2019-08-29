@@ -15,7 +15,7 @@ const fetchLastSubmission = async () => {
 // https://api.jotform.com/user/forms?apikey=ade9c792cc4b870cbac321b22d6a89ee&orderby=id
 const fetchAllForms = async () => {
   //Burayı düzelttim çalıştı
-  const url = `https://api.jotform.com/user/forms?apikey=${API_KEY}&limit=50`;
+  const url = `https://api.jotform.com/user/forms?apikey=${API_KEY}&limit=50&orderby=id`;
   const { data: { content } } = await axios.get(url);
 
   const tf = content.reduce((tournamentForms, { title, id }) => {
@@ -27,7 +27,17 @@ const fetchAllForms = async () => {
   return tf;
 };
 
-export { fetchLastSubmission, fetchAllForms };
+
+const fetchExpireDate = async (formID) => {
+  const url = `https://api.jotform.com/form/${formID}/properties?apiKey=${API_KEY}&limit=50&orderby=id`;
+
+  const { data: { content } } = await axios.get(url);
+  console.log(content.expireDate , content.id , content.title);
+  return content.expireDate;
+  
+};
+
+export { fetchLastSubmission, fetchAllForms , fetchExpireDate };
 
 /*const fetchImageStats = async id => {
     const response = await fetch(`${URL}/${id}/statistics${KEY}`);
