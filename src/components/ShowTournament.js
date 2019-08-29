@@ -6,8 +6,8 @@ import React, { PureComponent } from "react";
 //     // Model,
 //     GameComponent
 // } from "react-tournament-bracket";
-import DEMO_DATA from "./demo-data";
-import JSOG from "jsog";
+// import DEMO_DATA from "./demo-data";
+// import JSOG from "jsog";
 import { fetchAllForms } from "../actions";
 import { connect } from 'react-redux';
 import TournamentThumbnail from './TournamentThumbnail.js';
@@ -19,10 +19,10 @@ class ShowTournament extends PureComponent {
         this.props.fetchAllForms();
     }
 
-    state = {
-        homeOnTopState: true,
-        hoveredTeamId: null
-    };
+    // state = {
+    //     homeOnTopState: true,
+    //     hoveredTeamId: null
+    // };
 
     get tournaments() {
         /*
@@ -33,12 +33,17 @@ class ShowTournament extends PureComponent {
             }
         */
         const now = new Date();
+        var limit = new Date();
+        limit.setDate(now.getDate()+7);
+        console.log(limit);
+        
 
         return Object.keys(this.props.forms).reduce((allForms, formID) => {
             const currentForm = this.props.forms[formID];
             const expire = new Date(currentForm.start);
-
+            
             // TODO :: calculate on going and future events
+            // ---------------1(past)---now---1(ongoing)-----now+7day----- 1(future)----
 
             if (now > expire) {
                 return {
@@ -47,6 +52,13 @@ class ShowTournament extends PureComponent {
                 };
             }
 
+            if (limit < expire) {
+                return {
+                    ...allForms,
+                    futureTournaments: [...allForms.futureTournaments, currentForm]
+                };
+            }
+            
             return {
                 ...allForms,
                 onGoingTournaments: [...allForms.onGoingTournaments, currentForm]
@@ -81,12 +93,24 @@ class ShowTournament extends PureComponent {
                         }
                     </div>
                 </div>
-                <h3>Future Tournaments</h3>
                 <div>
                     <h3>Past Tournaments</h3>
                     <div>
                         {
                             this.tournaments.pastTournaments.map(tourno => (
+                                <TournamentThumbnail
+                                    {...tourno}
+                                    onClick={this.handleTournamentClick}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+                <div>
+                    <h3>Future Tournaments</h3>
+                    <div>
+                        {
+                            this.tournaments.futureTournaments.map(tourno => (
                                 <TournamentThumbnail
                                     {...tourno}
                                     onClick={this.handleTournamentClick}

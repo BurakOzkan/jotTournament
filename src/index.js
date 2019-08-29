@@ -36,7 +36,7 @@ const routing = (
           <Link to="/TournamentJoin">Join Tournament</Link>
         </li>
         <li>
-          <Link to="/TournamentShow">Tournaments</Link>
+          <Link to="/TournamentShow">Show Tournaments</Link>
         </li>
       </ul>
       <Route exact path="/" component={App} />
