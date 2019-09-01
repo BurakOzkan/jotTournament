@@ -1,13 +1,5 @@
 import React, { PureComponent } from "react";
-// import {
-//     Bracket,
-//     // BracketGame,
-//     // BracketGenerator,
-//     // Model,
-//     GameComponent
-// } from "react-tournament-bracket";
-// import DEMO_DATA from "./demo-data";
-// import JSOG from "jsog";
+
 import { fetchAllForms } from "../actions";
 import { connect } from 'react-redux';
 import TournamentThumbnail from './TournamentThumbnail.js';
@@ -19,38 +11,21 @@ class ShowTournament extends PureComponent {
         this.props.fetchAllForms();
     }
 
-    // state = {
-    //     homeOnTopState: true,
-    //     hoveredTeamId: null
-    // };
+
 
     get tournaments() {
-        /*
-            {
-                ongoing: [],
-                past: [],
-                future: []
-            }
-        */
+        
         const now = new Date();
         var limit = new Date();
         limit.setDate(now.getDate()+7);
         console.log(limit);
+    
         
 
         return Object.keys(this.props.forms).reduce((allForms, formID) => {
             const currentForm = this.props.forms[formID];
             const expire = new Date(currentForm.start);
-            
-            // TODO :: calculate on going and future events
-            // ---------------1(past)---now---1(ongoing)-----now+7day----- 1(future)----
-
-            if (now > expire) {
-                return {
-                    ...allForms,
-                    pastTournaments: [...allForms.pastTournaments, currentForm]
-                };
-            }
+            console.log(expire + currentForm.title);
 
             if (limit < expire) {
                 return {
@@ -58,11 +33,19 @@ class ShowTournament extends PureComponent {
                     futureTournaments: [...allForms.futureTournaments, currentForm]
                 };
             }
-            
-            return {
-                ...allForms,
-                onGoingTournaments: [...allForms.onGoingTournaments, currentForm]
-            };
+
+            if (expire < limit && expire > now) {
+                
+                return {
+                    ...allForms,
+                    onGoingTournaments: [...allForms.onGoingTournaments, currentForm]
+                };
+            }
+                return {
+                    ...allForms,
+                    pastTournaments: [...allForms.pastTournaments, currentForm]
+                };
+
         }, {
             onGoingTournaments: [],
             pastTournaments: [],
@@ -71,8 +54,6 @@ class ShowTournament extends PureComponent {
     }
 
     handleTournamentClick(e) {
-        // dispatch action to fetch submissions of the tournament form
-        // change route => http://localhost:3000/TournamentShow/${formID}
         // render bracket from submissions
         // e.target.dataset.formId
     }
@@ -94,7 +75,7 @@ class ShowTournament extends PureComponent {
                     </div>
                 </div>
                 <div>
-                    <h3>Past Tournaments</h3>
+                    <h3>Past sTournaments</h3>
                     <div>
                         {
                             this.tournaments.pastTournaments.map(tourno => (

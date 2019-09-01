@@ -41,12 +41,9 @@ class TournamentCreate extends React.Component {
          window.scrollTo(0, 0);
          console.log("yok");
          
-         // TODO
-         // action dispatch
+
          this.props.loadSubmission();   //THIS.PROPS.yazmadan neden olmadı.?
-         // bu actioni saga yakalayacak
-         // action son submission alicak
-         // form yaraticak
+
       }
    }
 
