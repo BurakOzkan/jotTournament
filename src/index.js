@@ -15,6 +15,7 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import TournamentCreate from "./components/TournamentCreate";
 import TournamentJoin from "./components/TournamentJoin";
 import ShowTournament from "./components/ShowTournament";
+
 import App from "./App";
 
 
@@ -43,6 +44,7 @@ const routing = (
       <Route path="/TournamentJoin" component={TournamentJoin} />
       <Route path="/TournamentCreate" component={TournamentCreate} />
       <Route path="/TournamentShow" component={ShowTournament} />
+
     </div>
   </Router>
    </Provider>

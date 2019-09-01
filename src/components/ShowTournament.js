@@ -1,8 +1,9 @@
 import React, { PureComponent } from "react";
 
-import { fetchAllForms } from "../actions";
+import { fetchAllForms, fetchAllTournamentSubmission  } from "../actions";
 import { connect } from 'react-redux';
 import TournamentThumbnail from './TournamentThumbnail.js';
+
 
 // TODO :: Research what is PureComponent and its difference from the Component
 
@@ -18,14 +19,12 @@ class ShowTournament extends PureComponent {
         const now = new Date();
         var limit = new Date();
         limit.setDate(now.getDate()+7);
-        console.log(limit);
     
         
 
         return Object.keys(this.props.forms).reduce((allForms, formID) => {
             const currentForm = this.props.forms[formID];
             const expire = new Date(currentForm.start);
-            console.log(expire + currentForm.title);
 
             if (limit < expire) {
                 return {
@@ -53,9 +52,17 @@ class ShowTournament extends PureComponent {
         });
     }
 
+    
+
+
     handleTournamentClick(e) {
         // render bracket from submissions
         // e.target.dataset.formId
+        const tournamentId = e.target.dataset.formId;
+        this.props.fetchAllTournamentSubmission(tournamentId)
+
+        
+
     }
 
     render() {
@@ -114,7 +121,9 @@ const mapStateToProps = ({ tournamentFormsReducer }) => ({
 });
 
 const mapDispatchToProps = {
-    fetchAllForms
+    fetchAllForms,
+    fetchAllTournamentSubmission
+    
 };
 
 export default connect(

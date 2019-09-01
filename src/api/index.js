@@ -4,7 +4,6 @@ import { CREATE_FORM } from "../constants/actionTypes";
 const API_KEY = "ade9c792cc4b870cbac321b22d6a89ee";
 const FORM_ID = "92181413902956";
 const FETCH_SUBMISSIONS = "https://api.jotform.com/form";
-const FETCH_FORMS = "https://api.jotform.com/user/forms";
 
 const fetchLastSubmission = async () => {
   //Burayı düzelttim çalıştı
@@ -36,7 +35,14 @@ const fetchExpireDate = async (formID) => {
   
 };
 
-export { fetchLastSubmission, fetchAllForms , fetchExpireDate };
+const fetchTournamentSubmissions = async formId => {
+  //Burayı düzelttim çalıştı
+  const url = `${FETCH_SUBMISSIONS}/${formId}/submissions?apikey=${API_KEY}`;
+  const { data } = await axios.get(url);
+  return data.content;
+};
+
+export { fetchLastSubmission, fetchAllForms , fetchExpireDate ,fetchTournamentSubmissions };
 
 /*const fetchImageStats = async id => {
     const response = await fetch(`${URL}/${id}/statistics${KEY}`);
