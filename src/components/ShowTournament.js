@@ -3,6 +3,7 @@ import React, { PureComponent } from "react";
 import { fetchAllForms, fetchAllTournamentSubmissions ,fetchAllTeams} from "../actions";
 import { connect } from 'react-redux';
 import TournamentThumbnail from './TournamentThumbnail.js';
+import { Alert } from 'react-bootstrap';
 
 
 // TODO :: Research what is PureComponent and its difference from the Component
@@ -69,7 +70,8 @@ class ShowTournament extends PureComponent {
         return (
             <div>
                 <div>
-                    <h3>On Going Tournaments</h3>
+                
+                <Alert variant="dark">On Going Tournaments </Alert>
                     <div>
                         {
                             this.tournaments.onGoingTournaments.map(tourno => (
@@ -82,7 +84,8 @@ class ShowTournament extends PureComponent {
                     </div>
                 </div>
                 <div>
-                    <h3>Past sTournaments</h3>
+                <br></br>
+                <Alert variant="dark">Past sTournaments</Alert>
                     <div>
                         {
                             this.tournaments.pastTournaments.map(tourno => (
@@ -94,8 +97,11 @@ class ShowTournament extends PureComponent {
                         }
                     </div>
                 </div>
+                
                 <div>
-                    <h3>Future Tournaments</h3>
+                <br></br>
+
+                <Alert variant="dark">Future Tournaments</Alert>
                     <div>
                         {
                             this.tournaments.futureTournaments.map(tourno => (

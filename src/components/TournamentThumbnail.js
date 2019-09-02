@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-bootstrap';
 
 
 
@@ -6,10 +7,10 @@ const TournementThumbnail = ({ id, title, onClick }) => (
     
     
 
-    <button onClick={onClick} data-form-id={id}>
+    <Button  variant="outline-primary" onClick={onClick} data-form-id={id}>
         {title.replace('__tournamentForm__', '')}
 
-    </button>
+    </Button>
 
 
 );
