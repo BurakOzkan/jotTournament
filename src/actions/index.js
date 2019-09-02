@@ -34,9 +34,10 @@ const fetchAllTournamentSubmissions = formid  => ({
     formid
 
 });
-const setTournamentTeams = teams => ({
+const setTournamentTeams = (teams,formid) => ({
     type: TOURNAMENTFORMSUBMISSIONS.FETCH_SUCCESS,
-    teams
+    teams,
+    formid
 });
 
 const fetchAllTeams = (formID) => ({

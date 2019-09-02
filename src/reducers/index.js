@@ -3,7 +3,6 @@ import { combineReducers } from "redux";
 import submissionReducer from "./submissionsReducers";
 import fetchTournamentFormsReducer from "./fetchTournamentFormsReducer";
 import tournamentFormsReducer from "./tournamentFormsReducer";
-import tournamentTeamsReducer from "./tournamentTeamsReducer";
 
 import createForm from './createformReducers';
 // import errorReducer from './errorReducer';
@@ -15,7 +14,7 @@ const rootReducer = combineReducers({
 	fetchTournamentFormsReducer,
 	tournamentFormsReducer,
 	submission: submissionReducer,
-	tournamentTeam: tournamentTeamsReducer
+
 	// error: errorReducer,
 	// nextPage: pageReducer,
 	// imageStats: statsReducer,

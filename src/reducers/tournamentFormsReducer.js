@@ -1,16 +1,24 @@
-import { FORMS } from '../constants';
+import { FORMS,TEAMS,TOURNAMENTFORMSUBMISSIONS } from '../constants';
 
 const tournamentFormsReducer = (state = {}, action) => {
-    if (action.type === FORMS.FETCH_SUCCESS) {
-      // reduce((acculumator, currentValue) => {}, initialState)
-      return action.forms.reduce((stateObj, form) => {
-        return {
-          ...stateObj,
-          [form.id]: form
-        };
-      }, state);
-    }
-    return state;
+    switch (action.type) {
+      case FORMS.FETCH_SUCCESS:        // reduce((acculumator, currentValue) => {}, initialState)
+        return action.forms.reduce((stateObj, form) => {
+          return {
+            ...stateObj,
+            [form.id]: form
+          };
+        }, state);      
+          
+      case TOURNAMENTFORMSUBMISSIONS.FETCH_SUCCESS:
+        state[action.formid].teams = action.teams;
+
+      return state;
+      
+      
+      default:
+          return state;
+  }
 };
 
 export default tournamentFormsReducer;

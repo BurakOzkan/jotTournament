@@ -10,7 +10,7 @@ export function* handleSubmissionLoad(action) {
     const { formID } = action;
     yield delay(1000);
     const tournamentTeams = yield fetchTournamentSubmissions(formID);
-    yield put(setTournamentTeams(tournamentTeams));
+    yield put(setTournamentTeams(tournamentTeams,formID));
     //convert to an object
 
     // TODO:: Create form with the parameters below
