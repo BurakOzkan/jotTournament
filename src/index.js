@@ -13,6 +13,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import TournamentCreate from "./components/TournamentCreate";
+import TournamentBracket from "./components/TournamentBracket";
 import TournamentJoin from "./components/TournamentJoin";
 import ShowTournament from "./components/ShowTournament";
 import tournamentBrackets from "./components/tournamentBrackets.js";
@@ -25,34 +26,34 @@ const store = configureStore();
 
 const routing = (
   <Provider store={store}>
-  <Router>
-    <div>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/TournamentCreate">Create Tournament</Link>
-        </li>
-        <li>
-          <Link to="/TournamentJoin">Join Tournament</Link>
-        </li>
-        <li>
-          <Link to="/TournamentShow">Show Tournaments</Link>
-        </li>
-        <li>
-          <Link to="/TournamentBrackets">Brackets Tournaments</Link>
-        </li>
-      </ul>
-      <Route exact path="/" component={App} />
-      <Route path="/TournamentJoin" component={TournamentJoin} />
-      <Route path="/TournamentCreate" component={TournamentCreate} />
-      <Route path="/TournamentShow" component={ShowTournament} />
-      <Route path="/TournamentBrackets" component={tournamentBrackets} />
-
-    </div>
-  </Router>
-   </Provider>
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/TournamentCreate">Create Tournament</Link>
+          </li>
+          <li>
+            <Link to="/TournamentJoin">Join Tournament</Link>
+          </li>
+          <li>
+            <Link to="/tournaments">Show Tournaments</Link>
+          </li>
+          <li>
+            <Link to="/TournamentBrackets">Brackets Tournaments</Link>
+          </li>
+        </ul>
+        <Route exact path="/" component={App} />
+        <Route exact path="/TournamentJoin" component={TournamentJoin} />
+        <Route exact path="/TournamentCreate" component={TournamentCreate} />
+        <Route exact path="/tournaments" component={ShowTournament} />
+        <Route exact path="/tournaments/:id" component={TournamentBracket} />
+        <Route exact path="/TournamentBrackets" component={tournamentBrackets} />
+      </div>
+    </Router>
+  </Provider>
 );
 ReactDOM.render(routing, document.getElementById("root"));
 

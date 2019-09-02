@@ -39,9 +39,9 @@ const setTournamentTeams = teams => ({
     teams
 });
 
-const fetchAllTeams = (e) => ({
+const fetchAllTeams = (formID) => ({
     type: TEAMS.FETCH,
-    e
+    formID
 });
 // const loadShowStats = id => ({
 //     type: STATS.LOAD,

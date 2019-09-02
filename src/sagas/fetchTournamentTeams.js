@@ -7,7 +7,7 @@ import { fetchTournamentSubmissions } from "../api";
 
 export function* handleSubmissionLoad(action) {
   try {
-    const formID = action.e.target.dataset.formId;
+    const { formID } = action;
     yield delay(1000);
     const tournamentTeams = yield fetchTournamentSubmissions(formID);
     yield put(setTournamentTeams(tournamentTeams));
