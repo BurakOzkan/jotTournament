@@ -2,7 +2,6 @@ import React from 'react'
 
 
 
-
 const TournementThumbnail = ({ id, title, onClick }) => (
     
     

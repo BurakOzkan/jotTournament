@@ -37,9 +37,12 @@ const fetchExpireDate = async (formID) => {
 
 const fetchTournamentSubmissions = async formId => {
   //Burayı düzelttim çalıştı
+
+  // https://api.jotform.com/form/{formID}/submissions?apiKey={apiKey}
   const url = `${FETCH_SUBMISSIONS}/${formId}/submissions?apikey=${API_KEY}`;
-  const { data } = await axios.get(url);
-  return data.content;
+  const { data: {content} } = await axios.get(url);
+  console.log(content);
+  
 };
 
 export { fetchLastSubmission, fetchAllForms , fetchExpireDate ,fetchTournamentSubmissions };

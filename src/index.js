@@ -15,6 +15,7 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import TournamentCreate from "./components/TournamentCreate";
 import TournamentJoin from "./components/TournamentJoin";
 import ShowTournament from "./components/ShowTournament";
+import tournamentBrackets from "./components/tournamentBrackets.js";
 
 import App from "./App";
 
@@ -39,11 +40,15 @@ const routing = (
         <li>
           <Link to="/TournamentShow">Show Tournaments</Link>
         </li>
+        <li>
+          <Link to="/TournamentBrackets">Brackets Tournaments</Link>
+        </li>
       </ul>
       <Route exact path="/" component={App} />
       <Route path="/TournamentJoin" component={TournamentJoin} />
       <Route path="/TournamentCreate" component={TournamentCreate} />
       <Route path="/TournamentShow" component={ShowTournament} />
+      <Route path="/TournamentBrackets" component={tournamentBrackets} />
 
     </div>
   </Router>

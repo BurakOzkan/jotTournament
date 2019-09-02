@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-import { fetchAllForms, fetchAllTournamentSubmission  } from "../actions";
+import { fetchAllForms, fetchAllTournamentSubmissions ,fetchAllTeams} from "../actions";
 import { connect } from 'react-redux';
 import TournamentThumbnail from './TournamentThumbnail.js';
 
@@ -8,6 +8,10 @@ import TournamentThumbnail from './TournamentThumbnail.js';
 // TODO :: Research what is PureComponent and its difference from the Component
 
 class ShowTournament extends PureComponent {
+
+    
+    
+    
     componentDidMount() {
         this.props.fetchAllForms();
     }
@@ -56,12 +60,8 @@ class ShowTournament extends PureComponent {
 
 
     handleTournamentClick(e) {
-        // render bracket from submissions
-        // e.target.dataset.formId
-        const tournamentId = e.target.dataset.formId;
-        this.props.fetchAllTournamentSubmission(tournamentId)
 
-        
+
 
     }
 
@@ -75,7 +75,7 @@ class ShowTournament extends PureComponent {
                             this.tournaments.onGoingTournaments.map(tourno => (
                                 <TournamentThumbnail
                                     {...tourno}
-                                    onClick={this.handleTournamentClick}
+                                    onClick={this.props.fetchAllTeams}
                                 />
                             ))
                         }
@@ -88,7 +88,7 @@ class ShowTournament extends PureComponent {
                             this.tournaments.pastTournaments.map(tourno => (
                                 <TournamentThumbnail
                                     {...tourno}
-                                    onClick={this.handleTournamentClick}
+                                    onClick={this.props.fetchAllTeams}
                                 />
                             ))
                         }
@@ -116,17 +116,18 @@ class ShowTournament extends PureComponent {
 
 
 
-const mapStateToProps = ({ tournamentFormsReducer }) => ({
-    forms: tournamentFormsReducer
+const mapStateToProps = ({ tournamentFormsReducer,tournamentTeamsReducer }) => ({
+    forms: tournamentFormsReducer,
+    teams: tournamentTeamsReducer
+    
 });
 
 const mapDispatchToProps = {
     fetchAllForms,
-    fetchAllTournamentSubmission
-    
+    fetchAllTeams   
 };
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(ShowTournament);
