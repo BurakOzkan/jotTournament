@@ -48,7 +48,7 @@ class TournamentCreate extends React.Component {
    }
 
    render() {
-      const { loadSubmission } = this.props;
+      const { loadSubmission } = this.props; //deleteee
 
       return (<div><Iframe source={this.state.src} />
             <Row><Button variant="primary" onClick={() =>  loadSubmission()}   /></Row>

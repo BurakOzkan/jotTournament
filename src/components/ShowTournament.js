@@ -53,8 +53,8 @@ class ShowTournament extends PureComponent {
     handleTournamentClick(e) {
         const formID = e.target.dataset.formId;
         const { history, match } = this.props;
-        history.push(`${match.path}/${formID}`);
-        // TODO :: Save fetched date to tournementFormsReducer under the formID key.
+        setTimeout(() => {         history.push(`${match.path}/${formID}`);   },2000); 
+
         this.props.fetchAllTeams(formID);
     }
 
@@ -65,9 +65,9 @@ class ShowTournament extends PureComponent {
                 <Alert variant="dark">On Going Tournaments </Alert>
                     <div>
                         {
-                            this.tournaments.onGoingTournaments.map(tourno => (
+                            this.tournaments.onGoingTournaments.map(tournament => (
                                 <TournamentThumbnail
-                                    {...tourno}
+                                    {...tournament}
                                     onClick={this.handleTournamentClick}
                                 />
                             ))
@@ -76,12 +76,12 @@ class ShowTournament extends PureComponent {
                 </div>
                 <div>
                 <br></br>
-                <Alert variant="dark">Past sTournaments</Alert>
+                <Alert variant="dark">Past Tournaments</Alert>
                     <div>
                         {
-                            this.tournaments.pastTournaments.map(tourno => (
+                            this.tournaments.pastTournaments.map(tournament => (
                                 <TournamentThumbnail
-                                    {...tourno}
+                                    {...tournament}
                                     onClick={this.props.fetchAllTeams}
                                 />
                             ))
@@ -95,9 +95,9 @@ class ShowTournament extends PureComponent {
                 <Alert variant="dark">Future Tournaments</Alert>
                     <div>
                         {
-                            this.tournaments.futureTournaments.map(tourno => (
+                            this.tournaments.futureTournaments.map(tournament => (
                                 <TournamentThumbnail
-                                    {...tourno}
+                                    {...tournament}
                                     onClick={this.handleTournamentClick}
                                 />
                             ))

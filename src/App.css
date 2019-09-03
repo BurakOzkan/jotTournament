@@ -15,7 +15,7 @@ font-style: normal;
 font-weight: normal;
 font-size: 18px;
 line-height: 22px;
-color: #413c3c;
+color: #995151;
 border: 1px solid #000000;
 
 }
@@ -32,8 +32,10 @@ border: 1px solid #000000;
   pointer-events: none;
 }
 
+
+
 .App-header {
-  background-color: #240041;
+  background-color: #121113;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -52,6 +54,6 @@ border: 1px solid #000000;
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(0deg);
   }
 }

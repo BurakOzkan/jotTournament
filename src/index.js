@@ -7,6 +7,7 @@ import { logger } from "redux-logger";
 import reducer from "./reducers";
 import rootSaga from "./sagas";
 import configureStore from './store';
+import {Navbar,Nav,Button,FormControl,Form} from 'react-bootstrap'
 
 import "./index.css";
 
@@ -17,7 +18,7 @@ import TournamentBracket from "./components/TournamentBracket";
 import TournamentJoin from "./components/TournamentJoin";
 import ShowTournament from "./components/ShowTournament";
 import tournamentBrackets from "./components/tournamentBrackets.js";
-
+import logo from "./logo.png";
 import App from "./App";
 
 
@@ -27,31 +28,24 @@ const store = configureStore();
 const routing = (
   <Provider store={store}>
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/TournamentCreate">Create Tournament</Link>
-          </li>
-          <li>
-            <Link to="/TournamentJoin">Join Tournament</Link>
-          </li>
-          <li>
-            <Link to="/tournaments">Show Tournaments</Link>
-          </li>
-          <li>
-            <Link to="/TournamentBrackets">Brackets Tournaments</Link>
-          </li>
-        </ul>
+
+    <Navbar  sticky="top" bg="dark" variant="dark">
+    <Navbar.Brand href="/"><img src={logo} className="Nav-logo" alt="logo" /></Navbar.Brand>
+    <Nav className="mr-auto">
+      <Nav.Link href="/" >Home</Nav.Link>
+      <Nav.Link href="/TournamentCreate" >Create Tournament</Nav.Link>
+      <Nav.Link href="/tournaments" >Show Tournaments</Nav.Link>
+    </Nav>
+    <Form inline>
+    </Form>
+  </Navbar>
+      
         <Route exact path="/" component={App} />
         <Route exact path="/TournamentJoin" component={TournamentJoin} />
         <Route exact path="/TournamentCreate" component={TournamentCreate} />
         <Route exact path="/tournaments" component={ShowTournament} />
         <Route exact path="/tournaments/:id" component={TournamentBracket} />
         <Route exact path="/TournamentBrackets" component={tournamentBrackets} />
-      </div>
     </Router>
   </Provider>
 );
