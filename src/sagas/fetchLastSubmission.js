@@ -10,7 +10,7 @@ import { create } from "istanbul-reports";
 
 export function* handleSubmissionLoad() {
   try {
-    yield delay(1000);
+    // yield delay(1000);
     const lastSubmission = yield fetchLastSubmission();
     yield put(setSubmission(lastSubmission));
     console.log(lastSubmission);

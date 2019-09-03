@@ -13,7 +13,6 @@ const fetchLastSubmission = async () => {
 const fetchAllForms = async () => {
   const url = `https://api.jotform.com/user/forms?apikey=${API_KEY}&limit=50&orderby=id`;
   const { data: { content } } = await axios.get(url);
-  console.log(content);
   const tf = content.reduce((tournamentForms, { title, id }) => {
     if (title.includes('__tournamentForm__')) {
       return [...tournamentForms, { title, id }];
@@ -36,15 +35,10 @@ const fetchTournamentSubmissions = async formId => {
   const teams= [];
   const url = `${FETCH_SUBMISSIONS}/${formId}/submissions?apikey=${API_KEY}`;
   const { data: { content } } = await axios.get(url);
-  console.log(content);
   content.forEach(function(element) {
-    console.log(element.answers[6].answer);
     teams.push(element.answers[6].answer);
   });
-  console.log(teams);
   return teams;
 };
 
 export { fetchLastSubmission, fetchAllForms , fetchExpireDate ,fetchTournamentSubmissions };
-
-

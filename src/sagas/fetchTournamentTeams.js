@@ -8,13 +8,8 @@ import { fetchTournamentSubmissions } from "../api";
 export function* handleSubmissionLoad(action) {
   try {
     const { formID } = action;
-    yield delay(1000);
     const tournamentTeams = yield fetchTournamentSubmissions(formID);
     yield put(setTournamentTeams(tournamentTeams,formID));
-    //convert to an object
-
-    // TODO:: Create form with the parameters below
-
   } catch (error) {
     yield put(setError(error.toString()));
   }

@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
 import { Link } from 'react-router';
-import { fetchAllForms, fetchAllTournamentSubmissions ,fetchAllTeams} from "../actions";
 import { connect } from 'react-redux';
 import TournamentThumbnail from './TournamentThumbnail.js';
 import { Alert } from 'react-bootstrap';
@@ -16,7 +15,6 @@ class ShowTournament extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.fetchAllForms();
     }
 
     get tournaments() {
@@ -53,9 +51,7 @@ class ShowTournament extends PureComponent {
     handleTournamentClick(e) {
         const formID = e.target.dataset.formId;
         const { history, match } = this.props;
-        setTimeout(() => {         history.push(`${match.path}/${formID}`);   },2000); 
-
-        this.props.fetchAllTeams(formID);
+        history.push(`${match.path}/${formID}`);
     }
 
     render() {
@@ -82,7 +78,7 @@ class ShowTournament extends PureComponent {
                             this.tournaments.pastTournaments.map(tournament => (
                                 <TournamentThumbnail
                                     {...tournament}
-                                    onClick={this.props.fetchAllTeams}
+                                    onClick={this.handleTournamentClick}
                                 />
                             ))
                         }
@@ -120,8 +116,6 @@ const mapStateToProps = ({ tournamentFormsReducer,tournamentTeamsReducer }) => (
 });
 
 const mapDispatchToProps = {
-    fetchAllForms,
-    fetchAllTeams   
 };
 
 export default connect(

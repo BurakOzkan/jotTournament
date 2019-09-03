@@ -32,12 +32,12 @@ const setError = error => ({
 const fetchAllTournamentSubmissions = formid  => ({
     type: TOURNAMENTFORMSUBMISSIONS.FETCH,
     formid
-
 });
-const setTournamentTeams = (teams,formid) => ({
+
+const setTournamentTeams = (teams, formID) => ({
     type: TOURNAMENTFORMSUBMISSIONS.FETCH_SUCCESS,
     teams,
-    formid
+    formID
 });
 
 const fetchAllTeams = (formID) => ({

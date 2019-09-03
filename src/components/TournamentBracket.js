@@ -1,65 +1,60 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import {
+  // fetchAllForms,
+  // fetchAllTournamentSubmissions,
+  fetchAllTeams
+} from "../actions";
 
 // TODO :: render teams in bracket
 // TODO :: find a way to keep the data of the tournament
 
 export  class TournamentBracket extends PureComponent {
-
-  
   get formID() {
     const { match } = this.props;
-    
     return match.params.id;
   }
 
   componentDidMount(){
-    
-    // console.log(this.props.tournaments)
-    console.log(JSON.parse(JSON.stringify(this.props.tournaments[this.formID].teams)));
-
+    this.props.fetchAllTeams(this.formID);
   }
 
-
-
-  get teams() {
-    if(this.props.tournaments[this.formID].teams){
-    return this.props.tournaments[this.formID].teams
-  }
-  return null;
-}
-  
-  // get teams(){
-  //   const {forms} = this.props;
-  //   return forms.
+  // get teams() {
+  //   if(this.props.tournaments[this.formID].teams){
+  //     return this.props.tournaments[this.formID].teams
+  //   }
+  //   return null;
   // }
+  
+  get teams(){
+    const { tournament } = this.props;
+    return tournament ? tournament.teams || [] : [];
+  }
 
   render() {
     return (
-      
       <div>
-        
         {this.formID}
         {this.teams}
       </div>
     );
-
-    
   }
 }
 
 
-const mapStateToProps = ({ tournamentFormsReducer }) => ({
-  tournaments: tournamentFormsReducer
-  
-});
+const mapStateToProps = ({ tournamentFormsReducer }, { match }) => {
+  const formID = match.params.id;
+  return {
+    tournament: tournamentFormsReducer[formID]
+  };
+}
 
 const mapDispatchToProps = {
   // fetchAllForms,
-  // fetchAllTeams   
+  fetchAllTeams
 };
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(TournamentBracket);

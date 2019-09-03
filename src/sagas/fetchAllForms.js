@@ -10,7 +10,7 @@ import { fetchAllForms , fetchExpireDate } from "../api";
 export function* handleFetchForms() {
   try {
     const forms = yield fetchAllForms();
-    // below action will set the tourno forms to the reducer by their IDs
+
     yield all(forms.map((form) => {
       return fetchExpireDate(form.id).then((value) => {
         form.start = value.toString();
