@@ -14,9 +14,6 @@ const tournamentFormsReducer = (state = {}, action) => {
           };
         }, state);
       case TOURNAMENTFORMSUBMISSIONS.FETCH_SUCCESS:
-        // state[action.formid].teams = action.teams;
-        // Object.assign(state ,  { [form.id]: action.teams })
-        console.log(state, action);
         return {
           ...state,
           [action.formID]: {
