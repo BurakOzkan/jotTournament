@@ -6,6 +6,7 @@ import {
   fetchAllTeams
 } from "../actions";
 import TeamThumbnail from './TeamThumbnail';
+import TournamentBrackets from './tournamentBrackets';
 import ReactTournament from 'react-tournament';
 import styled from 'styled-components'
 
@@ -39,109 +40,28 @@ export  class TournamentBracket extends PureComponent {
     return tournament ? tournament.teams || [] : [];
   }
 
+  get dataArray() {
+    const { teams } = this;
+    const roundCount = Math.sqrt(teams.length);
+    return Array.from({ length: roundCount }, (el, index) => {
+      const sourceArray = index === 0 ? teams : Array.from({ length: roundCount - index + 1 });
+      const round = [];
+      let curPair = [];
+      sourceArray.forEach((team, index) => {
+        curPair.push({ user: team || '' });
+        if ((index + 1) % 2 === 0) {
+          round.push(curPair);
+          curPair = [];
+        }
+      });
+      return round;
+    });
+  }
+
   render() {
-    const theme ={
-      primary: {
-        default: '#757585',
-        dark: '#1565c0',
-        darkest: '#002171',
-        light: '#bbdefb',
-      },
-      success: {
-        default: '#81c784',
-        dark: '#388e3c',
-        darkest: '#003300',
-        light: '#c8e6c9',
-      },
-      fail: {
-        default: '#e57373',
-        dark: '#c62828',
-        darkest: '#7f0000',
-        light: '#ffcdd2',
-      },
-      textSmall: '11px',
-      textMedium: '16px',
-      textLarge: '22px',
-    
-      textDark: '#000000',
-      textLight: '#ffffff',
-    };
-    const  data = [
-      // 1st round
-      [
-        // 1st pair
-        [
-          // 1st person
-          {
-            user: 'yankouskia',
-            userLink: 'https://github.com/yankouskia',
-            score: 87,
-            scoreLink: 'https://github.com/yankouskia/react-tournament',
-            isWinner: true,
-          },
-          // 2nd person
-          {
-            user: 'Alex',
-            userLink: 'https://github.com/yankouskia',
-            score: 32,
-            scoreLink: 'https://github.com/yankouskia/react-tournament',
-          }
-        ],
-        // 2nd pair
-        [
-          // 3rd person
-          {
-            user: 'yankouskia',
-            userLink: 'https://github.com/yankouskia',
-            score: 56,
-            scoreLink: 'https://github.com/yankouskia/react-tournament',
-            isWinner: true,
-          },
-          // 4th person
-          {
-            user: 'Alex',
-            userLink: 'https://github.com/yankouskia',
-            score: 54,
-            scoreLink: 'https://github.com/yankouskia/react-tournament',
-          }
-        ]
-      ],
-      // 2nd round
-      [
-        // 1st pair
-        [
-          // 1st person
-          {
-            user: 'yankouskia',
-            userLink: 'https://github.com/yankouskia',
-            score: 34,
-            scoreLink: 'https://github.com/yankouskia/react-tournament',
-          },
-          // 2nd person
-          {
-            user: 'Alex',
-            userLink: 'https://github.com/yankouskia',
-            score: 98,
-            scoreLink: 'https://github.com/yankouskia/react-tournament',
-          }
-        ]
-      ],
-    ];
     return (
       <div>
-          <ReactTournament
-    aspectRatio="1"
-    data={data}
-    theme={theme}
-    width="%50"
-  />
-
-        { 
-          this.teams.map((item, index) => <TeamThumbnail team={item} key={index} />)
-        }  
-          <p><br></br>
-            {Array((this.teams.length)/2).fill(<TeamThumbnail />)}
-          </p>
+        <TournamentBrackets teams={[...this.teams, Array(2).fill()]} />
       </div>
 
 
