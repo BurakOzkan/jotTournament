@@ -31,15 +31,15 @@ const Main = styled.div`
 class TournamentBrackets extends React.Component {
   listBrackets() {
     let bracketType = this.state.bracket4;
-    if (this.state.numOfSeeds === "4") {
+    // if (this.state.numOfSeeds === "4") {
+    //   bracketType = this.state.bracket4;
+    // }
+    // if (this.state.numOfSeeds === "8") {
+    //   bracketType = this.state.bracket8;
+    // }
+    // if (this.state.numOfSeeds === "16") {
       bracketType = this.state.bracket4;
-    }
-    if (this.state.numOfSeeds === "8") {
-      bracketType = this.state.bracket8;
-    }
-    if (this.state.numOfSeeds === "16") {
-      bracketType = this.state.bracket16;
-    }
+    // }
     const bracketList = this.props.teams.map((text, key) => {
       return (
         <Competitor
@@ -79,11 +79,11 @@ class TournamentBrackets extends React.Component {
     super(props);
     const ln = props.teams.length;
     this.state = {
-      numOfSeeds: ln,
-      seedNum: [],
+      numOfSeeds: "16",
+      seedNum: Array(6).fill(),
       newName: "",
-      names: Array(ln + 2).fill(),
-      isClicked: Array(ln + 2).fill("#9B88B4"),
+      names: Array(ln+2).fill(),
+      isClicked: Array(ln + 6).fill("gray"),
       class: `bracket${ln}`,
       bracket4: {
         mainColumn: "30% 20% 20% 30%",
