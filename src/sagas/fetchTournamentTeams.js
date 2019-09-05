@@ -1,4 +1,4 @@
-import { put, call, takeEvery, select, delay } from "redux-saga/effects";
+import { put , takeEvery } from "redux-saga/effects";
 
 import { setTournamentTeams, setError } from "../actions";
 import { TEAMS } from "../constants";

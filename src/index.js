@@ -11,7 +11,6 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import AppNavigation from "./components/AppNavigation";
 import TournamentCreate from "./components/TournamentCreate";
 import TournamentBracket from "./components/TournamentBracket";
-import TournamentJoin from "./components/TournamentJoin";
 import ShowTournament from "./components/ShowTournament";
 import tournamentBrackets from "./components/tournamentBrackets.js";
 import App from "./App";
@@ -25,7 +24,6 @@ function AppRoutes(props) {
       <AppNavigation />
       <Router>
         <Route exact path="/" component={App} />
-        <Route exact path="/TournamentJoin" component={TournamentJoin} />
         <Route exact path="/TournamentCreate" component={TournamentCreate} />
         <Route exact path="/tournaments" component={ShowTournament} />
         <Route exact path="/tournaments/:id" component={TournamentBracket} />

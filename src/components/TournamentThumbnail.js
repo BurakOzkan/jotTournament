@@ -1,18 +1,46 @@
 import React from 'react'
-import { Button } from 'react-bootstrap';
-import {Badge} from 'react-bootstrap'
+import { Button ,Popover,OverlayTrigger , ButtonGroup } from 'react-bootstrap';
+
+
+
+const popover = (id, title, onClick) => (
+
+  <Popover id="popover-basic">
+        <ButtonGroup>
+        <Button
+          variant="primary"
+          onClick={onClick}
+          data-form-id={id}
+          className="mahmut"
+        >
+        VIEW TOURNAMENT
+        </Button>
+        <Button
+          variant="success"
+          href={`https://jotform.com/${id}`}
+          target="_blank"
+          data-form-id={id}
+          className="mahmut"
+        >
+        JOIN TOURNAMENT
+        </Button>
+        </ButtonGroup>
+  </Popover>
+);
+
 
 
 const TournementThumbnail = ({ id, title, onClick }) => (
-    <Button
-      variant="outline-dark"
-      onClick={onClick}
-      data-form-id={id}
-      className="mahmut"
-    >
-        {title.replace('__tournamentForm__', '')}
-        <div><Badge href="https://jotform.com/`${id}`" sticky="top" variant="secondary">   </Badge></div>
-    </Button>
+
+    
+
+    <React.Fragment>
+    <OverlayTrigger trigger="click" placement="right" overlay={popover(id, title, onClick)}>
+      <Button variant="info">{title.replace('__tournamentForm__', '')}</Button>        
+    </OverlayTrigger>
+    &nbsp;
+    </React.Fragment>
 );
+
 
 export default TournementThumbnail;

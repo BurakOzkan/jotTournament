@@ -1,4 +1,4 @@
-import { SUBMISSION , FORMS, TOURNAMENTFORMSUBMISSIONS ,TEAMS } from "../constants";
+import { SUBMISSION , FORMS, TOURNAMENTFORMSUBMISSIONS ,TEAMS ,RESPONSEID } from "../constants";
 
 const loadSubmission = () => ({
     type: SUBMISSION.LOAD
@@ -44,6 +44,11 @@ const fetchAllTeams = (formID) => ({
     type: TEAMS.FETCH,
     formID
 });
+
+const setResponseID = (responseFormID) => ({
+    type: RESPONSEID.FETCH,
+    responseFormID
+});
 // const loadShowStats = id => ({
 //     type: STATS.LOAD,
 //     id,
@@ -69,7 +74,8 @@ export {
     setError,
     fetchAllTournamentSubmissions,
     setTournamentTeams,
-    fetchAllTeams
+    fetchAllTeams,
+    setResponseID
     // loadImageStats,
     // setImageStats,
     // setImageStatsError,

@@ -5,16 +5,10 @@ import TournamentThumbnail from './TournamentThumbnail.js';
 import { Alert } from 'react-bootstrap';
 
 
-// TODO :: Research what is PureComponent and its difference from the Component
-
 class ShowTournament extends PureComponent {
     constructor(props) {
         super(props);
-
         this.handleTournamentClick = this.handleTournamentClick.bind(this);
-    }
-
-    componentDidMount() {
     }
 
     get tournaments() {
@@ -71,7 +65,6 @@ class ShowTournament extends PureComponent {
                     </div>
                 </div>
                 <div>
-                <br></br>
                 <Alert variant="dark">Past Tournaments</Alert>
                     <div>
                         {
@@ -83,11 +76,8 @@ class ShowTournament extends PureComponent {
                             ))
                         }
                     </div>
-                </div>
-                
+                </div>                
                 <div>
-                <br></br>
-
                 <Alert variant="dark">Future Tournaments</Alert>
                     <div>
                         {

@@ -1,37 +1,25 @@
-import { put, call, takeEvery, select, delay , all } from "redux-saga/effects";
+import { 
+        put,
+        takeEvery,
+        all
+       } from "redux-saga/effects";
 
 import { setForms , setFetchAllFormsError } from "../actions";
 import { FORMS } from "../constants";
-import questionConstants from "../constants/questionConstants";
-// import joiningJSON from "../jsons/joiningForm";
 
 import { fetchAllForms , fetchExpireDate } from "../api";
 
 export function* handleFetchForms() {
   try {
-    const forms = yield fetchAllForms();
+      const forms = yield fetchAllForms();
 
-    yield all(forms.map((form) => {
-      return fetchExpireDate(form.id).then((value) => {
-        form.start = value.toString();
-      });
-    }));
+      yield all(forms.map((form) => {
+        return fetchExpireDate(form.id).then((value) => {
+          form.start = value.toString();
+        });
+      }));
 
-    yield put(setForms(forms));
-
-    // call a new action that will query each formID in the reducer,
-    // get their formProperties and update the reducer in that key
-    // startDate,
-
-
-
-    // calling yield from the inside of a for loops is a little problematic
-    // one solution is `for of` loop. other is `yield all` prefer this.
-
-    // example code block for `yield all`
-    // yield all(uploadedFiles.map((file) => {
-    //   return put(request);
-    // }));
+      yield put(setForms(forms));
   } catch (error) {
     yield put(setFetchAllFormsError(error.toString()));
   }

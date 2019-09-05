@@ -1,12 +1,9 @@
-import { put, call, takeEvery, select, delay } from "redux-saga/effects";
+import { put , takeEvery } from "redux-saga/effects";
 
 import { setSubmission, setError } from "../actions";
 import { SUBMISSION } from "../constants";
 import questionConstants from "../constants/questionConstants";
-import joiningJSON from "../jsons/joiningForm";
-
 import { fetchLastSubmission } from "../api";
-import { create } from "istanbul-reports";
 
 export function* handleSubmissionLoad() {
   try {
@@ -18,15 +15,13 @@ export function* handleSubmissionLoad() {
       tournamentName,
       tournamentType,
       participantsOrTeams,
-      startDate,
-      invitees
+      startDate
     } = questionConstants;
 
     const name = lastSubmission[tournamentName].answer;
     const type = lastSubmission[tournamentType].answer;
     const participantCount = lastSubmission[participantsOrTeams].answer;
     const start = lastSubmission[startDate].answer;
-    const invites = lastSubmission[invitees].answer;
 
     let formJSON = {
       properties: {
@@ -167,7 +162,9 @@ export function* handleSubmissionLoad() {
           name:"input9",
           order:"1",
           qid:"9",
-          text:` <strong>Tournament Type : </strong>  ${type} </p>`,
+          text:`<p style="text-align: center;"><span style="font-size: 24pt; font-family: symbol;"><strong>${name} Tournament </strong></span></p>
+          <p style="text-align: center;"><span style="font-size: 24pt; font-family: symbol;"><strong>Registration Form</strong></span></p>
+          <p style="text-align: center;">&nbsp;</p> `,
           type:"control_text"
         }
       },
@@ -181,20 +178,6 @@ export function* handleSubmissionLoad() {
       console.log(response.id);
     });
 
-
-
-
-
-    //convert to an object
-
-    // TODO:: Create form with the parameters below
-    console.log({
-      name, // static
-      type, // static
-      participantCount, // form submission limit on count ok 
-      start, // start - 15 gun, form submission limit on date
-      invites // email gonderme var ama sonra belki.
-    });
   } catch (error) {
     yield put(setError(error.toString()));
   }
