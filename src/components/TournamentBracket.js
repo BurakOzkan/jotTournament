@@ -76,8 +76,10 @@ export  class TournamentBracket extends PureComponent {
     window.localStorage.setItem(`bracket_${this.formID}`, JSON.stringify(arr));
   }
 
-  resetLocalStorage() {
+  resetLocalStorage(arr) {
     // TODO :: Put a reset button for the tournament and delete the data in the local storage
+    window.localStorage.setItem(`bracket_${this.formID}`, JSON.stringify(arr));
+
   }
 
   render() {
@@ -86,6 +88,7 @@ export  class TournamentBracket extends PureComponent {
         <TournamentBrackets
           teams={this.teams}
           updateLocal={this.updateLocal}
+          formID={this.formID}
         />
       </div>
 
