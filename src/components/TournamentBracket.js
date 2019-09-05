@@ -15,7 +15,11 @@ import styled from 'styled-components'
 // TODO :: find a way to keep the data of the tournament
 
 export  class TournamentBracket extends PureComponent {
-
+  constructor(props) {
+    super(props);
+    this.updateLocal = this.updateLocal.bind(this);
+    this.state = { useLocal: false };
+  }
 
 
 
@@ -26,18 +30,28 @@ export  class TournamentBracket extends PureComponent {
 
   componentDidMount(){
     this.props.fetchAllTeams(this.formID);
+    const x = window.localStorage.getItem(`bracket_${this.formID}`);
+    if (x) {
+      try {
+        console.log('found', JSON.parse(x));
+        this.setState({ useLocal: true });
+      } catch (e) {
+        console.log('hoppa');
+      }
+    }
   }
 
-  // get teams() {
-  //   if(this.props.tournaments[this.formID].teams){
-  //     return this.props.tournaments[this.formID].teams
-  //   }
-  //   return null;
-  // }
-  
   get teams(){
     const { tournament } = this.props;
-    return tournament ? tournament.teams || [] : [];
+    if (this.state.useLocal) {
+      const data = window.localStorage.getItem(`bracket_${this.formID}`);
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        //
+      }
+    }
+    return tournament && Array.isArray(tournament.teams) ? [...tournament.teams, ...Array(14).fill()] || [] : [];
   }
 
   get dataArray() {
@@ -58,10 +72,21 @@ export  class TournamentBracket extends PureComponent {
     });
   }
 
+  updateLocal(arr) {
+    window.localStorage.setItem(`bracket_${this.formID}`, JSON.stringify(arr));
+  }
+
+  resetLocalStorage() {
+    // TODO :: Put a reset button for the tournament and delete the data in the local storage
+  }
+
   render() {
     return (
       <div>
-        <TournamentBrackets teams={[...this.teams, Array(2).fill()]} />
+        <TournamentBrackets
+          teams={this.teams}
+          updateLocal={this.updateLocal}
+        />
       </div>
 
 

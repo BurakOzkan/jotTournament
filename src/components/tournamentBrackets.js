@@ -35,12 +35,8 @@ let fakeEvent = {
 };
 
 class TournamentBrackets extends React.Component {
-
-  
   componentDidMount() {
     this.handleChange(fakeEvent);
-
-
   }
 
 
@@ -50,28 +46,6 @@ class TournamentBrackets extends React.Component {
       numOfSeeds: newNum
     });
 
-    if (newNum === "undefined") {
-      this.setState({
-        names: [],
-        class: "",
-        isClicked: []
-      });
-    }
-
-    if (newNum === "4") {
-      //depending on the seed, fills the arrays with the correct amount of buttons.
-      this.setState({
-        names: Array(6).fill(),
-        class: "bracket4",
-        isClicked: Array(6).fill("#535257")
-      });
-    }
-    if (newNum === "8") {
-      this.setState({
-        names: Array(14).fill(),
-        isClicked: Array(14).fill("#535257")
-      });
-    }
     if (newNum === "16") {
       this.setState({
         names: Array(30).fill(),
@@ -80,22 +54,8 @@ class TournamentBrackets extends React.Component {
     }
   }
 
-
-
-
-
-
   listBrackets() {
-    let bracketType = this.state.bracket4;
-    if (this.state.numOfSeeds === "4") {
-      bracketType = this.state.bracket4;
-    }
-    if (this.state.numOfSeeds === "8") {
-      bracketType = this.state.bracket8;
-    }
-    if (this.state.numOfSeeds === "16") {
-      bracketType = this.state.bracket16;
-    }
+    const bracketType = this.state.bracket16;
     const bracketList = this.props.teams.map((text, key) => {
       return (
         <Competitor
@@ -122,25 +82,16 @@ class TournamentBrackets extends React.Component {
   //this has the grid properties for each bracket
 
   //match is used to decide where the button's text should move to next
-  static getDerivedStateFromProps(np, ps) {
-    if (np.teams !== ps.teams) {
-      return {
-        names: [...np.teams, Array(2).fill()]
-      };
-    }
-    return {};
-  }
-
   constructor(props) {
     super(props);
     const ln = props.teams.length;
     this.state = {
-      numOfSeeds: "15",
-      seedNum: Array(2).fill(),
+      numOfSeeds: 0,
+      seedNum: [],
       newName: "",
-      names: Array(ln).fill(),
-      isClicked: Array(ln + 7).fill("gray"),
-      class: "bracket16",
+      names: [],
+      isClicked: [],
+      class: "container",
       bracket4: {
         mainColumn: "30% 20% 20% 30%",
         column: [1, 1, 4, 4, 2, 3],
@@ -268,44 +219,6 @@ class TournamentBrackets extends React.Component {
         newArr[key + 1] !== undefined &&
         key % 2 === 0 &&
         clickedArr[key + 1] !== "#66ff70" &&
-        numBracket === "4"
-      ) {
-        newArr[this.state.bracket4.match[key]] = arr[key]; //this algorithm decides where the name should go once clicked.
-        clickedArr[key] = "#66ff70";
-        clickedArr[key + 1] = "#ff6666"; //uses key plus or minus one and also depends on the bracket size
-      } else if (
-        newArr[key - 1] !== undefined &&
-        key % 2 !== 0 &&
-        clickedArr[key - 1] !== "#66ff70" &&
-        numBracket === "4"
-      ) {
-        newArr[this.state.bracket4.match[key]] = arr[key];
-        clickedArr[key] = "#66ff70";
-        clickedArr[key - 1] = "#ff6666";
-      }
-      if (
-        newArr[key + 1] !== undefined &&
-        key % 2 === 0 &&
-        clickedArr[key + 1] !== "#66ff70" &&
-        numBracket === "8"
-      ) {
-        newArr[this.state.bracket8.match[key]] = arr[key];
-        clickedArr[key] = "#66ff70";
-        clickedArr[key + 1] = "#ff6666";
-      } else if (
-        newArr[key - 1] !== undefined &&
-        key % 2 !== 0 &&
-        clickedArr[key - 1] !== "#66ff70" &&
-        numBracket === "8"
-      ) {
-        newArr[this.state.bracket8.match[key]] = arr[key];
-        clickedArr[key] = "#66ff70";
-        clickedArr[key - 1] = "#ff6666";
-      }
-      if (
-        newArr[key + 1] !== undefined &&
-        key % 2 === 0 &&
-        clickedArr[key + 1] !== "#66ff70" &&
         numBracket === "16"
       ) {
         newArr[this.state.bracket16.match[key]] = arr[key];
@@ -323,7 +236,9 @@ class TournamentBrackets extends React.Component {
       }
     }
     this.setState({
-      names: this.props.teams
+      names: newArr
+    }, () => {
+      this.props.updateLocal(newArr);
     });
   }
 
