@@ -30,14 +30,14 @@ class TournamentCreate extends React.Component {
 
    
    handleIframeMessage(e) {
-
       if (
          typeof e.data === "object" &&
          e.data.action &&
          e.data.action === "submission-completed"
       ) {
          window.scrollTo(0, 0);
-         this.props.loadSubmission();   
+         this.props.loadSubmission();
+         setTimeout(() => this.props.history.push('tournaments'), 1000);
       }
    }
 
