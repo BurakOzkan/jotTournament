@@ -245,8 +245,9 @@ class TournamentBrackets extends React.Component {
   render() {
     return (
       <div className="bracketMaker">
-        <Button variant="danger" type="submit" onClick={() => { window.localStorage.removeItem(`bracket_${this.props.formID}`) }}>CLEAR </Button>
-
+        <div className="center" >
+        <Button variant="danger" type="submit" onClick={() => { window.localStorage.removeItem(`bracket_${this.props.formID}`) }}>RESET TOURNAMENT </Button>
+        </div >
         <div className="body">{this.listBrackets()}</div>
 
       </div>

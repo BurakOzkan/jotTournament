@@ -36,7 +36,8 @@ const TournementThumbnail = ({ id, title, onClick }) => (
 
     <React.Fragment>
     <OverlayTrigger trigger="click" placement="right" overlay={popover(id, title, onClick)}>
-      <Button variant="info">{title.replace('__tournamentForm__', '')}</Button>        
+      
+      <Button variant="info"  size="lg">{title.replace('__tournamentForm__', '')}</Button>        
     </OverlayTrigger>
     &nbsp;
     </React.Fragment>

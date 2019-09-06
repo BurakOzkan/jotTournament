@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.png";
 import "./App.css";
-import {Button,ButtonToolbar} from 'react-bootstrap'
+import {Button,ButtonToolbar,Row,Col,Image} from 'react-bootstrap'
 
 function App() {
   return (
@@ -17,6 +17,9 @@ function App() {
     Show Tournaments
   </Button>
 </ButtonToolbar>
+
+
+
       </header>
     </div>
   );
